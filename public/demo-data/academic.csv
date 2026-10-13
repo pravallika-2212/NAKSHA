@@ -1,0 +1,2 @@
+roll_number,admission_year,academic_year,term_code,term_name,term_start,term_end,subject_name,subject_code,marks_obtained,max_marks,grade,gpa,cgpa,recorded_on
+DEMO-ROLL-001,2026,2026-2027,DEMO-T1,DEMO Term 1,2026-06-01,2026-10-01,DEMO Mathematics,DEMO-MATH,78,100,B,7.8,7.6,2026-10-02

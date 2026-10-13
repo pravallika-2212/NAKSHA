@@ -1,0 +1,9 @@
+student_id,reporting_period,logins,assignments_assigned,assignments_completed,overdue_assignments
+STU-CS-101,Fall 2025,82,12,12,0
+STU-CS-102,Fall 2025,18,12,5,4
+STU-CS-103,Fall 2025,95,14,14,0
+STU-CS-104,Fall 2025,45,10,8,2
+STU-CS-105,Fall 2025,60,12,11,1
+STU-CS-106,Fall 2025,35,12,7,3
+STU-CS-107,Fall 2025,70,10,10,0
+STU-CS-108,Fall 2025,55,14,12,1

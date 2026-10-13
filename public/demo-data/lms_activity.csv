@@ -1,0 +1,2 @@
+roll_number,admission_year,course_label,period_start,period_end,sessions_count,minutes_active,assignments_completed,assignments_total,source_name
+DEMO-ROLL-001,2026,DEMO Introductory Course,2026-08-01,2026-10-01,12,480,4,5,DEMO synthetic LMS

@@ -1,0 +1,2 @@
+roll_number,admission_year,source_reference,record_type,status,event_date,score,detail
+DEMO-ROLL-001,2026,DEMO-REF-001,assessment,completed,2026-09-15,68,DEMO synthetic assessment record

@@ -1,0 +1,291 @@
+/* ==========================================================================
+   ASCENDIQ Design System & Visual Identity
+   Palette: Milky Mist, Baby Pink, Dusky Rose, Deep Maroon, Midnight Burgundy
+   ========================================================================== */
+
+:root {
+  /* Requested Official Palette Tokens */
+  --milky-mist: #FFF8F7;
+  --soft-cloud: #F9EDEF;
+  --baby-pink: #F6C8D3;
+  --blush-pink: #F0A9BC;
+  --dusky-rose: #C77D93;
+  --muted-rose: #A95873;
+  --deep-maroon: #4B1028;
+  --dark-merlot: #300817;
+  --midnight-burgundy: #1C0711;
+  --main-light: #FFF7FA;
+  --muted-light: #D8C1CA;
+  --main-dark: #381724;
+
+  /* Semantic UI Tokens */
+  --bg-primary: var(--milky-mist);
+  --bg-secondary: var(--soft-cloud);
+  --bg-card: #FFFFFF;
+  --bg-glass: rgba(255, 248, 247, 0.85);
+  --border-light: rgba(199, 125, 147, 0.22);
+  --border-card: rgba(169, 88, 115, 0.16);
+
+  --accent-primary: var(--muted-rose);
+  --accent-secondary: var(--dusky-rose);
+  --accent-hover: var(--deep-maroon);
+
+  --text-primary: var(--main-dark);
+  --text-muted: #6B4E58;
+  --text-light: var(--main-light);
+  --text-light-muted: var(--muted-light);
+
+  /* Status Colors */
+  --status-critical: #9E1B32;
+  --status-critical-bg: #FDE8EC;
+  --status-high: #C0392B;
+  --status-high-bg: #FBEAEB;
+  --status-moderate: #B76E00;
+  --status-moderate-bg: #FEF6E6;
+  --status-low: #1E7E34;
+  --status-low-bg: #E8F5E9;
+
+  /* Typography */
+  --font-serif: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-sans: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* Elevations */
+  --shadow-sm: 0 2px 8px rgba(75, 16, 40, 0.06);
+  --shadow-md: 0 8px 24px rgba(75, 16, 40, 0.08);
+  --shadow-lg: 0 16px 48px rgba(48, 8, 23, 0.14);
+  --shadow-3d: 0 24px 60px rgba(28, 7, 17, 0.35);
+}
+
+/* Background video container */
+.hero-video-wrap {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.hero-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.68) saturate(1.15);
+  opacity: 0.72;
+  transition: opacity 1s ease;
+}
+
+.hero-video-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 65% 35%, rgba(199, 125, 147, 0.28) 0%, rgba(75, 16, 40, 0.82) 55%, var(--midnight-burgundy) 100%);
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+
+.hero-video-glow {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(28, 7, 17, 0.4) 0%, rgba(48, 8, 23, 0.85) 85%, var(--midnight-burgundy) 100%);
+  pointer-events: none;
+}
+
+/* 3D Carousel Styles */
+.role-carousel-container {
+  perspective: 1200px;
+  width: 100%;
+  max-width: 960px;
+  margin: 36px auto 0;
+  padding: 20px 10px;
+  position: relative;
+  z-index: 5;
+}
+
+.role-carousel-track {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 22px;
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.role-card-3d {
+  width: 290px;
+  min-height: 380px;
+  background: rgba(255, 248, 247, 0.94);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(246, 200, 211, 0.5);
+  border-radius: 18px;
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 16px 40px rgba(48, 8, 23, 0.18);
+  transition: all 0.45s cubic-bezier(0.23, 1, 0.32, 1);
+  transform-style: preserve-3d;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.role-card-3d::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: linear-gradient(90deg, var(--blush-pink), var(--muted-rose));
+  opacity: 0.8;
+}
+
+.role-card-3d:hover {
+  transform: translateY(-8px) scale(1.02) rotateY(2deg);
+  box-shadow: 0 24px 50px rgba(75, 16, 40, 0.28);
+  border-color: var(--blush-pink);
+}
+
+.role-card-3d.active-card {
+  border: 2px solid var(--muted-rose);
+  box-shadow: 0 24px 60px rgba(75, 16, 40, 0.35);
+}
+
+.role-card-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--soft-cloud), var(--baby-pink));
+  color: var(--deep-maroon);
+  display: grid;
+  place-items: center;
+  margin-bottom: 18px;
+  box-shadow: 0 4px 12px rgba(169, 88, 115, 0.15);
+}
+
+.role-card-title {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--main-dark);
+  margin: 0 0 8px;
+}
+
+.role-card-subtitle {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: var(--muted-rose);
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.role-card-desc {
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+}
+
+.role-card-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, var(--deep-maroon), var(--dark-merlot));
+  color: var(--main-light);
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: none;
+  border: none;
+  transition: all 0.2s ease;
+}
+
+.role-card-action:hover {
+  background: linear-gradient(135deg, var(--muted-rose), var(--deep-maroon));
+  transform: translateY(-2px);
+  color: #fff;
+}
+
+/* Sample Data Banner */
+.demo-banner {
+  background: linear-gradient(90deg, var(--dark-merlot), var(--deep-maroon));
+  color: var(--main-light);
+  padding: 10px 24px;
+  font-size: 11px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(246, 200, 211, 0.2);
+  position: relative;
+  z-index: 40;
+}
+
+.demo-banner-badge {
+  background: var(--muted-rose);
+  color: #fff;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+  margin-right: 10px;
+}
+
+.demo-scenarios-btns {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.demo-scenario-btn {
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--main-light);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  padding: 5px 10px;
+  border-radius: 6px;
+  font-size: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.demo-scenario-btn:hover {
+  background: var(--baby-pink);
+  color: var(--dark-merlot);
+  border-color: var(--baby-pink);
+}
+
+/* Score and Risk Pills */
+.score-pill-provisional {
+  background: #FFF3CD;
+  color: #856404;
+  border: 1px solid #FFEEBA;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.score-pill-insufficient {
+  background: #F8D7DA;
+  color: #721C24;
+  border: 1px solid #F5C6CB;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.score-pill-available {
+  background: #D4EDDA;
+  color: #155724;
+  border: 1px solid #C3E6CB;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 10px;
+  font-weight: 700;
+}

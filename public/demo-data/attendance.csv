@@ -1,0 +1,2 @@
+roll_number,admission_year,period_start,period_end,classes_attended,classes_held,source_name
+DEMO-ROLL-001,2026,2026-08-01,2026-10-01,36,40,DEMO synthetic attendance

@@ -1,0 +1,51 @@
+﻿file_name,column_name,required,meaning,example_format,validation_rule,maps_to_existing_supabase_table,notes
+01_institutions.csv,institution_key,Yes,Stable import-only key used to connect CSV files before database UUIDs are resolved,AP-INST-0001,Unique in this import package; do not use as Supabase UUID,public.institutions (resolve to id),Not an official code; generated import key only.
+01_institutions.csv,institution_name,Yes,Official institution name,Example format only; do not use as data,Trim whitespace; preserve official spelling,public.institutions.name,Verify against a source URL.
+01_institutions.csv,official_institution_code,No,Official identifier only when the source publishes one,Source-defined code,Never invent; blank if unavailable,public.institutions.code,Check uniqueness and source scope before importing.
+01_institutions.csv,institution_type,Yes,Institution category,university / affiliated_college / autonomous_college / standalone / other,Use a controlled list agreed with existing schema,public.institutions.institution_type,Map source terms to allowed DB values.
+01_institutions.csv,state,Yes,State where institution is located,Andhra Pradesh,Must be Andhra Pradesh for this initial catalog,public.institutions.state,Use canonical spelling.
+01_institutions.csv,district,No,District name,Guntur,Normalize spelling; blank if not verified,public.institutions.district,Do not infer from name alone.
+01_institutions.csv,status,Yes,Whether record is available in the catalog,active / inactive,Only activate after review,public.institutions.status,Confirm allowed enum/check constraint.
+01_institutions.csv,is_demo,Yes,Whether record is synthetic demo data,false,Real sourced records must be false; demo rows must be clearly labelled,public.institutions.is_demo,Do not mix demo data with real records.
+01_institutions.csv,source_name,Yes,Name of official/public source,AISHE / UGC / AP affiliation portal / official institution site,Non-empty for real records,No direct mapping unless schema has source columns,Keep provenance in staging or add reviewed metadata columns.
+01_institutions.csv,source_url,Yes,Exact page or dataset URL supporting the record,https://...,Must be reachable and relevant; do not invent URLs,public.institutions.catalog_source_url (possible mapping),Validate field exists and policy permits update.
+01_institutions.csv,source_record_id,No,Identifier assigned by the source,Source-specific ID,Only if actually present in source,Staging/import metadata,Not the same as Supabase id.
+01_institutions.csv,verification_status,Yes,Internal evidence review state,pending_review / verified / needs_review,Set verified only after evidence review,Staging/import metadata,Do not confuse public availability with verification.
+01_institutions.csv,last_verified_on,No,Date record was last checked,YYYY-MM-DD,"Use actual review date, not fabricated dates",public.institutions.catalog_verified_at (possible mapping),Check destination column type.
+01_institutions.csv,notes,No,Import/review notes,Free text,Do not put secrets or personal data here,Staging/import metadata,Keep concise.
+02_academic_programs.csv,program_key,Yes,Stable import key for a program offering,AP-PROG-0001,Unique in this import package,public.institution_courses (resolve to id),The existing table calls these records courses; do not create a duplicate table without review.
+02_academic_programs.csv,institution_key,Yes,Institution this offering belongs to,AP-INST-0001,Must match an institution_key in 01_institutions.csv,public.institution_courses.institution_id,Resolve institution_key to the actual Supabase institution UUID.
+02_academic_programs.csv,program_name,Yes,Official program/degree offering name,B.Tech Computer Science and Engineering,Must be supported by official evidence,public.institution_courses.name,Avoid treating a department as a separate program unless the source does so.
+02_academic_programs.csv,degree_level,No,Degree level/type if published,undergraduate / postgraduate / diploma / doctoral,Use controlled list; blank if unknown,No confirmed direct mapping in current table,May require reviewed schema addition if needed.
+02_academic_programs.csv,duration_years,No,Normal published duration of the program,4,Positive numeric value; evidence required,public.institution_courses.duration_years,Do not assume all degrees have standard duration.
+02_academic_programs.csv,status,Yes,Catalog availability status,active / inactive,Only active when current offering is supported,public.institution_courses.status,Check DB constraints.
+02_academic_programs.csv,source_name,Yes,Name of source for this specific offering,Official institution program page,Non-empty,Staging/import metadata,Institution source does not automatically verify every offering.
+02_academic_programs.csv,source_url,Yes,Exact source page for this specific offering,https://...,"Must support program name and, where possible, duration",Staging/import metadata,Prefer official course/department page or official admission prospectus.
+02_academic_programs.csv,source_record_id,No,Source identifier for offering,Source-specific ID,Only if published,Staging/import metadata,Optional.
+02_academic_programs.csv,verification_status,Yes,Evidence review state for this program,pending_review / verified / needs_review,Independent from institution status,Staging/import metadata,Do not automatically inherit institution verification.
+02_academic_programs.csv,last_verified_on,No,Date program information was checked,YYYY-MM-DD,Actual review date only,Staging/import metadata,Optional if not yet reviewed.
+02_academic_programs.csv,notes,No,Program-specific caveats,Free text,No unsupported claims,Staging/import metadata,Optional.
+03_departments.csv,department_key,Yes,Stable import key for a department,AP-DEPT-0001,Unique in this import package,public.institution_departments (resolve to id),"Import key only, not Supabase UUID."
+03_departments.csv,institution_key,Yes,Institution owning the department,AP-INST-0001,Must match institutions file,public.institution_departments.institution_id,Resolve to actual UUID.
+03_departments.csv,program_key,Yes,Related program offering,AP-PROG-0001,Must match program_key and institution_key in programs file,public.institution_departments.course_id,Resolve to actual course/program UUID and ensure same institution.
+03_departments.csv,department_name,Yes,Official department name,Computer Science and Engineering,Evidence required from an official source,public.institution_departments.name,Do not invent departments based on common patterns.
+03_departments.csv,status,Yes,Catalog availability status,active / inactive,Only active when currently supported,public.institution_departments.status,Check DB constraints.
+03_departments.csv,source_name,Yes,Source name for this department,Official institution department page,Non-empty,Staging/import metadata,Must support this specific department.
+03_departments.csv,source_url,Yes,Exact source page for department,https://...,Must support department existence,Staging/import metadata,Do not copy the institution homepage unless it substantiates the record.
+03_departments.csv,source_record_id,No,Source identifier if available,Source-specific ID,Only if published,Staging/import metadata,Optional.
+03_departments.csv,verification_status,Yes,Department evidence review state,pending_review / verified / needs_review,Review independently,Staging/import metadata,Do not automatically mark verified.
+03_departments.csv,last_verified_on,No,Date department information was checked,YYYY-MM-DD,Actual review date only,Staging/import metadata,Optional.
+03_departments.csv,notes,No,Notes for reviewer,Free text,No unsupported claims,Staging/import metadata,Optional.
+04_academic_year_rules.csv,rule_key,Yes,Stable import key for a rule,AP-RULE-0001,Unique in package,No confirmed existing table,Treat as staging/config data until schema and academic rules are reviewed.
+04_academic_year_rules.csv,institution_key,Yes,Institution to which rule applies,AP-INST-0001,Must exist in institution file,No confirmed existing table,Do not add this to production until business rules are agreed.
+04_academic_year_rules.csv,program_key,Yes,Program to which rule applies,AP-PROG-0001,Must exist in program file,No confirmed existing table,"Optional if rule is institution-wide only, subject to import design."
+04_academic_year_rules.csv,admission_year,Yes,Year student entered the program,2025,Four-digit year; must follow approved policy,"Student registration/profile, not institution catalog",Not a list of individual students.
+04_academic_year_rules.csv,academic_year_label,No,Academic session label if officially published,2025-26,Use source convention,No confirmed existing table,Not the same as admission year.
+04_academic_year_rules.csv,study_year,Yes,Program year/level number,2,"Between 1 and program duration, subject to policy","Student registration/profile, not institution catalog",Validate against duration and any approved break/re-entry policy.
+04_academic_year_rules.csv,status,Yes,Whether the rule is currently applicable,active / inactive,Only after policy review,No confirmed existing table,Admission-year rules may change by institution.
+04_academic_year_rules.csv,source_name,No,Source for academic-year rule,Official academic calendar,Required if marked verified,Staging/import metadata,Some rules may be app policy rather than public facts.
+04_academic_year_rules.csv,source_url,No,Source URL for rule,https://...,Must support the rule if source-based,Staging/import metadata,Do not fabricate.
+04_academic_year_rules.csv,verification_status,Yes,Rule review state,pending_review / verified / needs_review,Verified only after policy/source review,Staging/import metadata,Separate from course verification.
+04_academic_year_rules.csv,last_verified_on,No,Date rule was checked,YYYY-MM-DD,Actual date only,Staging/import metadata,Optional.
+04_academic_year_rules.csv,notes,No,Rule notes,Free text,No personal data,Staging/import metadata,Optional.
+05_data_dictionary.csv,*,N/A,This file documents the import format,See each row,Reference document; do not import as catalog records,Documentation only,Use it to build importer validations.

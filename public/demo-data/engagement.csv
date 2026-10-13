@@ -1,0 +1,2 @@
+roll_number,admission_year,metric_name,metric_value,unit,source_name,period_start,period_end
+DEMO-ROLL-001,2026,DEMO participation score,72,score_0_100,DEMO synthetic engagement,2026-08-01,2026-10-01
